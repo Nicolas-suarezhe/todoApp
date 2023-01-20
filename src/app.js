@@ -3,7 +3,8 @@ const db = require('./utils/database')
 const initModels = require ("./models/init.model")
 const Users = require('./models/users.model')
 const Todos = require('./models/todos.model')
-const Categories = require('./models/categories.model')
+const userRoutes = require ('./routes/users.routes')
+const todoRoutes = require ('./routes/todos.routes')
 
 const app = express()
 
@@ -29,6 +30,10 @@ db.sync({force:false})  //compara lo que tengamos en la base de datos con lo que
 app.get('/', (req,res)=>{
     res.status(200).json({message:'Bienvenido al servidor'})//el código 200 es para 'decir' que todo salió bien
 })
+
+app.use('/api/v1', todoRoutes )
+app.use('/api/v1', userRoutes )
+
 
 
 
