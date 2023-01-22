@@ -50,6 +50,17 @@ class TodosServices {
             throw error
         }
     }
+
+    static async withCategories(id){
+        try {
+            const result = await Todos.findOne({
+                where:{id}
+            })
+            return result
+        } catch (error) {
+            throw error
+        }
+    }
 }
 
 

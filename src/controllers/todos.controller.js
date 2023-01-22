@@ -51,6 +51,15 @@ const deleteTodo = async (req,res)=>{
     }
 }
 
+const getTodosWithCategories = async (req, res)=>{
+    try {
+        const id = req.params.id
+        const result = await TodosServices.withCategories(id)
+        res.json(result)
+    } catch (error) {
+        res.status(400).json(error.message)
+    }
+}
 
 
 
@@ -59,5 +68,6 @@ module.exports = {
     getTodoById,
     createNewTodo,
     updateTodo,
-    deleteTodo
+    deleteTodo,
+    getTodosWithCategories
 }
