@@ -97,6 +97,23 @@ class UserServices {
         } 
     }
 
+    static async getCateFromUsers(id){
+        try {
+            const result = await Users.findOne({
+                where:{id},
+                attributes:["username"],
+                include:{
+                    attributes:["name"],
+                    model: Categories,
+                    as: "categories"
+                }
+            })
+            return result 
+        } catch (error) {
+            throw error
+        } 
+    }
+
 }
 
 

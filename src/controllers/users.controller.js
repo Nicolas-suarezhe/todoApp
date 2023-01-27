@@ -40,6 +40,16 @@ const getCategoriesFromTasks = async (req,res)=>{
     }
 }
 
+const getUsersCategories = async (req,res)=>{
+    try {
+        const id = req.params.id
+        const result = await UserServices.getCateFromUsers(id)
+        res.status(200).json(result)
+    } catch (error) {
+        res.status(400).json(error.message)
+    }
+}
+
 const createUser = async (req, res) =>{
     try {
         const newUser = req.body
@@ -73,7 +83,6 @@ const deleteUser = async (req,res)=>{
 
 
 
-
 module.exports = {
     getAllUsers,
     getUserById,
@@ -81,5 +90,6 @@ module.exports = {
     updateUser,
     deleteUser,
     getUserAndTasks,
-    getCategoriesFromTasks
+    getCategoriesFromTasks,
+    getUsersCategories
 }

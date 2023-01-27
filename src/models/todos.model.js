@@ -24,11 +24,7 @@ const Todos = db.define( "todos", {
     userId:{
         type: DataTypes.INTEGER,
         allowNull: false,
-        field: "user_id",
-        references:{
-            model: Users,
-            key: "id",
-        }
+        field: "user_id"
     }
 },
 {
