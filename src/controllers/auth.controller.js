@@ -15,7 +15,6 @@ const userLogin = async (req,res) =>{
 
             const token = jwt.sign(data,'esternocleidomastoideo',{algorithm: 'HS512'})
             data.token = token
-            console.log(data)
             res.json(data)
         }else{
             res.status(401).json({message:'Credenciales inválidas'})
