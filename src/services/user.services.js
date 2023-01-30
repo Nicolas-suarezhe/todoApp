@@ -1,9 +1,10 @@
-const Categories = require('../models/categories.model')
-const Todos = require('../models/todos.model')
+const Courses = require('../models/courses.model')
+const UsersCourses = require('../models/users-courses.model')
 const Users = require('../models/users.model')
-const TodosCategories = require ('../models/todos-categories.model')
+
 
 class UserServices {
+
     static async getAll() {
         try {
             const result = await Users.findAll()
@@ -13,9 +14,32 @@ class UserServices {
         }
     }
 
-    static async getById(id){
+    static async getUserByPk(id) {
         try {
-            const result = await Users.findByPk(id)
+            const result = await Users.findByPk(id,{
+                attributes:["id","first_name","last_name","email"]
+            })
+            return result
+        } catch (error) {
+            throw error
+        }
+    }
+
+    static async getUserWithCourses(id) {
+        try {
+            const result = await Users.findByPk(id,{
+                attributes:["id","first_name","last_name","email"],
+                include:{
+                    attributes: ["user_id"],
+                    model: UsersCourses,
+                    as: "courses",
+                    include:{
+                        attributes:["title"],
+                        model: Courses,
+                        as: "courses"
+                    }
+                }
+            })
             return result
         } catch (error) {
             throw error
@@ -42,10 +66,12 @@ class UserServices {
         }
     }
 
-    static async deleteUser(id){
+    static async createACourse(id, newCourse) {
         try {
-            const result = await Users.destroy({
-                where:{id}
+            const result = await Courses.create(newCourse,{
+                where:{
+                    user_id:{id}
+                }// DID NOT FINISH
             })
             return result
         } catch (error) {
@@ -53,66 +79,8 @@ class UserServices {
         }
     }
 
-    static async getUAndTasks(id){
-        try {
-            const result = await Users.findOne({
-                where:{id},
-                attributes:["username"], //esto sirve para únicamente ver el username cuando se pida la info, para no ver password o demás información innecesaria
-                include:{
-                    attributes:["title", "description", "isComplete"],
-                    model: Todos,
-                    as: "task"
-                }
-            })
-            return result 
-        } catch (error) {
-            throw error
-        } 
-    }
 
-    static async getCateFromTasks(id){
-        try {
-            const result = await Users.findOne({
-                where:{id},
-                attributes:["username"],
-                include:{
-                    attributes:["title", "description", "isComplete"],
-                    model: Todos,
-                    as: "task",
-                    include:{
-                        model: TodosCategories,
-                        as: "categories",
-                        attributes:["category_id"],
-                        include:{
-                            model: Categories,
-                            as:"category",
-                            attributes:["name"]
-                        }
-                    }
-                }
-            })
-            return result 
-        } catch (error) {
-            throw error
-        } 
-    }
 
-    static async getCateFromUsers(id){
-        try {
-            const result = await Users.findOne({
-                where:{id},
-                attributes:["username"],
-                include:{
-                    attributes:["name"],
-                    model: Categories,
-                    as: "categories"
-                }
-            })
-            return result 
-        } catch (error) {
-            throw error
-        } 
-    }
 
 }
 

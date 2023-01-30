@@ -1,18 +1,14 @@
 const { Router } = require ('express')
-const { getAllUsers, getUserById, createUser, updateUser, deleteUser, getUserAndTasks, getCategoriesFromTasks, getUsersCategories } = require('../controllers/users.controller')
+const { getAllUsers ,getUserById, getUserWithCourse, createUser, updateUser, createUserCourse} = require('../controllers/users.controller')
 
 const router = Router()
 
-router.get('/users', getAllUsers)
-router.get('/users/:id', getUserById)
-router.get('/users/:id/todos', getUserAndTasks)
-router.get('/users/:id/todos/categories', getCategoriesFromTasks)
-router.get('/users/:id/categories', getUsersCategories)
+router.get('/users', getAllUsers) // obtain all users
+router.get('/users/:id', getUserById ) // obtain user by id
+router.get('/users/:id/courses', getUserWithCourse ) ///obtain user and them courses
+router.post('/users', createUser) // create an user
+router.put('/users/:id', updateUser) // update an user
+router.post('/users/:id/courses', createUserCourse) // add a course to an user --- DID NOT FINISH
 
-router.post('/users', createUser)
-
-router.put('/users/:id', updateUser)
-
-router.delete('/users/:id', deleteUser)
 
 module.exports = router

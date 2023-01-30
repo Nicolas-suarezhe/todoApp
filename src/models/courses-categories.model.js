@@ -1,30 +1,27 @@
 const db = require("../utils/database")
-
 const {DataTypes} = require("sequelize");
-const Categories = require("./categories.model");
-const Todos = require("./todos.model");
 
-const TodosCategories = db.define( "todos_categories", {
+const CoursesCategories = db.define( "courses_categories", {
     id: {
         primaryKey: true,
         type: DataTypes.INTEGER,
         autoIncrement: true,
         allowNull: false
     },
-    categoryId: {
+    course_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        field: "course_id"
+    },
+    category_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         field: "category_id"
-    },
-    todoId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        field: "todo_id"
     }
 },
 {
-    timestamps:false //Quita los createdAt y esas cosas
+    timestamps:false 
 }
 )
 
-module.exports = TodosCategories;
+module.exports = CoursesCategories;

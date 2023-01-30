@@ -1,8 +1,7 @@
 const db = require("../utils/database")
 const {DataTypes} = require("sequelize");
-const Users = require("./users.model");
 
-const Todos = db.define( "todos", {
+const Videos = db.define( "videos", {
     id: {
         primaryKey: true,
         type: DataTypes.INTEGER,
@@ -13,22 +12,16 @@ const Todos = db.define( "todos", {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    description: {
+    url: {
         type: DataTypes.STRING,
     },
-    isComplete: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: false,
-        field: "is_completed"
-    },
-    userId:{
+    course_id:{
         type: DataTypes.INTEGER,
         allowNull: false,
-        field: "user_id"
     }
 },
 {
-    timestamps:false //Quita los createdAt y esas cosas
+    timestamps:false 
 })
 
-module.exports = Todos;
+module.exports = Videos;

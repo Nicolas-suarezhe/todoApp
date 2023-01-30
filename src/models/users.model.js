@@ -9,10 +9,19 @@ const Users = db.define( "users", {
         autoIncrement: true,
         allowNull: false
     },
-    username: {
+    first_name: {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true
+    },
+    last_name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true
+    },
+    password: {
+        type: DataTypes.STRING,
+        allowNull: false
     },
     email: {
         type: DataTypes.STRING,
@@ -21,14 +30,10 @@ const Users = db.define( "users", {
         validate: {
             isEmail: true
         }
-    },
-    password: {
-        type: DataTypes.STRING,
-        allowNull: false
     }
 },
 {
-    timestamps:false //Quita los createdAt y esas cosas
+    timestamps:false 
 }
 )
 

@@ -13,37 +13,17 @@ const getAllUsers = async (req,res)=>{
 const getUserById = async (req,res)=>{
     try {
         const id = req.params.id
-        const result = await UserServices.getById(id)
+        const result = await UserServices.getUserByPk(id)
         res.status(200).json(result)
     } catch (error) {
         res.status(400).json(error.message)
     }
 }
 
-const getUserAndTasks = async (req,res)=>{
+const getUserWithCourse = async (req,res)=>{
     try {
         const id = req.params.id
-        const result = await UserServices.getUAndTasks(id)
-        res.json(result)
-    } catch (error) {
-        res.status(400).json(error.message)
-    }
-}
-
-const getCategoriesFromTasks = async (req,res)=>{
-    try {
-        const id = req.params.id
-        const result = await UserServices.getCateFromTasks(id)
-        res.json(result)
-    } catch (error) {
-        res.status(400).json(error.message)
-    }
-}
-
-const getUsersCategories = async (req,res)=>{
-    try {
-        const id = req.params.id
-        const result = await UserServices.getCateFromUsers(id)
+        const result = await UserServices.getUserWithCourses(id)
         res.status(200).json(result)
     } catch (error) {
         res.status(400).json(error.message)
@@ -71,25 +51,25 @@ const updateUser = async (req,res)=>{
     }
 }
 
-const deleteUser = async (req,res)=>{
+const createUserCourse = async (req,res)=>{
     try {
         const id = req.params.id
-        const result = await UserServices.deleteUser(id)
+        const newCourse = req.body
+        const result = await UserServices.createACourse(id, newCourse)
         res.status(200).json(result)
     } catch (error) {
         res.status(400).json(error.message)
-    }
+    }// DID NOT FINISH
 }
+
 
 
 
 module.exports = {
     getAllUsers,
     getUserById,
+    getUserWithCourse,
     createUser,
     updateUser,
-    deleteUser,
-    getUserAndTasks,
-    getCategoriesFromTasks,
-    getUsersCategories
+    createUserCourse
 }
